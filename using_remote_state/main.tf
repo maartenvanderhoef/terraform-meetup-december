@@ -7,12 +7,12 @@ provider "aws" {
 ## Remote states
 
 data "terraform_remote_state" "vpc" {
-    backend = "s3"
-    config {
-        bucket     = "tfmeetup-remote-state"
-        key        = "mystate.tfstate"
-        region     = "us-west-2"
-    }
+  backend = "s3"
+  config {
+    bucket = "tfmeetup-remote-state"
+    key    = "mystate.tfstate"
+    region = "us-west-2"
+  }
 }
 
 data "aws_subnet" "selected" {
@@ -50,12 +50,12 @@ resource "aws_security_group" "web" {
 }
 
 resource "aws_instance" "web" {
-    vpc_security_group_ids = ["${aws_security_group.web.id}"]
-    subnet_id = "${data.aws_subnet.selected.id}"
-    ami = "${data.aws_ami.ubuntu.id}"
-    instance_type = "t2.micro"
-    user_data = "apt-get update; apt-get install -y nginx ;echo \"This was amazing\" > /usr/share/nginx/html/index.html"
-    tags {
-        Name = "${var.shortname}"
-    }
+  vpc_security_group_ids = ["${aws_security_group.web.id}"]
+  subnet_id = "${data.aws_subnet.selected.id}"
+  ami = "${data.aws_ami.ubuntu.id}"
+  instance_type = "t2.micro"
+  tags {
+    Name       = "${var.shortname}"
+    created_by = "terraform"
+  }
 }

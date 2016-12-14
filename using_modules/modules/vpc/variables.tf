@@ -1,14 +1,11 @@
-variable "access_key" {
-  description = "The AWS Access key"
-}
-
-variable "secret_key" {
-  description = "The AWS secret key"
-}
-
 variable "region" {
   description = "The AWS region"
-  default     = "us-west-2"
+  default = "us-west-2"
+}
+
+variable "private_zone_enabled" {
+  description = "Set to 1: to enable creation Route53 private zone"
+  default     = "0"
 }
 
 variable "shortname" {
