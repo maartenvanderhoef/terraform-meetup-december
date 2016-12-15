@@ -1,0 +1,10 @@
+version: '2'
+
+services:  
+  terraform:
+    image: "hashicorp/terraform:full"
+    volumes:
+      - ~/.aws:/root/.aws
+      - .:/app
+    working_dir: /app
+
